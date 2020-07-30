@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 
 export class ShoppingListService{
        ingredientsChanged = new Subject<Ingredient[]>();
+       startedEdit = new Subject<number>();
 
        private ingredients: Ingredient[] = [
             new Ingredient('Apple', 5),
