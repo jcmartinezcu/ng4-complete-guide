@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { LogginService } from '../logging.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-shopping-list',
@@ -11,19 +12,24 @@ import { LogginService } from '../logging.service';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
-  ingredients: Ingredient[];
+  ingredients:  Observable<{ingredients: Ingredient[]}>;
   private igChangeSub: Subscription;
 
-  constructor(private slService: ShoppingListService, private logginService: LogginService) { }
+  constructor(private slService: ShoppingListService, 
+              private logginService: LogginService, 
+              private store: Store< { ShoppingList: { ingredients: Ingredient[]}}>
+              ) {}
 
   ngOnInit(): void {
-    this.ingredients = this.slService.getIngredients();
-    this.igChangeSub = this.slService.ingredientsChanged
-    .subscribe(
-      (ingredients: Ingredient[]) => {
-        this.ingredients = ingredients;
-      }
-    );
+   this.ingredients = this.store.select('ShoppingList')
+
+    // this.ingredients = this.slService.getIngredients();
+    // this.igChangeSub = this.slService.ingredientsChanged
+    // .subscribe(
+    //   (ingredients: Ingredient[]) => {
+    //     this.ingredients = ingredients;
+    //   }
+    // );
 
     this.logginService.printLog('Hello fron shoppingListComponent ngOnInit');
   }
@@ -33,7 +39,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.igChangeSub.unsubscribe();
+    // this.igChangeSub.unsubscribe();
     
   }
 

@@ -3,7 +3,7 @@ import * as ShoppingListActions from './shopping-list.actions';
 
 
 const initiaState = {
-    ingredient: [
+    ingredients: [
         new Ingredient('Apple', 5),
         new Ingredient('Tomatoes', 10)
   ]
@@ -15,7 +15,9 @@ export function ShoppingListReducer(state= initiaState, action: ShoppingListActi
         case ShoppingListActions.ADD_INGREDIENT :
             return {
                 ...state,
-                ingredient: [...state.ingredient, action]
+                ingredient: [...state.ingredients, action]
             }
+        default:
+            return state;
     }
 }
