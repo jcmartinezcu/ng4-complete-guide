@@ -21,7 +21,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
               ) {}
 
   ngOnInit(): void {
-   this.ingredients = this.store.select('ShoppingList')
+   this.ingredients = this.store.select('ShoppingList');
 
     // this.ingredients = this.slService.getIngredients();
     // this.igChangeSub = this.slService.ingredientsChanged
