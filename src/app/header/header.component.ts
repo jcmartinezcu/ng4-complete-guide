@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import * as fromApp from '../store/app.reduce';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import * as AuthActions from '../auth/store/auth.actions';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
     }
 
     onLogout(){
-        this.authService.logout();
+        this.store.dispatch(new AuthActions.Logout());
     }
     ngOnDestroy(){
         this.userSub.unsubscribe();
