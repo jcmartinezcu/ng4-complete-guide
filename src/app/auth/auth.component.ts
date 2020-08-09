@@ -21,7 +21,8 @@ export class AuthComponent implements OnInit{
     ngOnInit(){
         this.store.select('auth').subscribe(authState =>{
             this.isLoading = authState.loading;
-            this.error = authState.authError;            
+            this.error = authState.authError;   
+                    
         });
     }
     onSwitchMode(){
